@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using RestSharp;
+using System.Net;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+
+using RestSharp;
+using RestSharp.Serialization.Json;
 
 namespace HelloSign
 {
@@ -50,7 +52,7 @@ namespace HelloSign
 
         private string apiKey;
         private RestClient client;
-        private RestSharp.Deserializers.JsonDeserializer deserializer;
+        private JsonDeserializer deserializer;
         private const string defaultHost = "api.hellosign.com";
         public List<Warning> Warnings { get; private set; }
         public string Version { get; private set; }
@@ -80,7 +82,7 @@ namespace HelloSign
             // Initialize stuff
             client = new RestClient();
             client.UserAgent = "hellosign-dotnet-sdk/" + Version;
-            deserializer = new RestSharp.Deserializers.JsonDeserializer();
+            deserializer = new JsonDeserializer();
             Warnings = new List<Warning>();
             SetApiHost(defaultHost);
         }
